@@ -9,7 +9,7 @@ opt.guicursor = 'a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,'
 
 opt.clipboard = 'unnamedplus' -- Sync with system clipboard
 opt.completeopt = 'menu,menuone,noselect'
-opt.conceallevel = 3 -- Hide * markup for bold and italic
+opt.conceallevel = 2 -- for obsidian.nvim; was: 3 -- Hide * markup for bold and italic
 opt.confirm = true -- Confirm to save changes before exiting modified buffer
 opt.cursorline = true --  Highlight cursor's line
 opt.expandtab = true -- Use spaces instead of tabs
