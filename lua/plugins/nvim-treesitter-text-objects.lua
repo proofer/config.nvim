@@ -1,4 +1,6 @@
+-- source:
 -- https://github.com/josean-dev/dev-environment-files/blob/main/.config/nvim/lua/josean/plugins/nvim-treesitter-text-objects.lua
+-- blog post: https://www.josean.com/posts/nvim-treesitter-and-textobjects
 return {
     'nvim-treesitter/nvim-treesitter-textobjects',
     lazy = true,

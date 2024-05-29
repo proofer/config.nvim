@@ -11,13 +11,6 @@ local function keymaps()
             s = { '<cmd>ObsidianSearch<CR>', 'Search' },
             q = { '<cmd>ObsidianQuickSwitch<CR>', 'Quick switcher' },
             f = { '<cmd>ObsidianFollowLink<CR>', 'Follow link' },
-            x = {
-                function()
-                    vim.fn.input('Test OK; hit Enter')
-                end,
-                'prompt "Test OK; hit Enter"',
-            },
-            -- x = { '<cmd>echo "Test worked"<CR>', 'echo "Test worked"' },
             c = {
                 function()
                     return require('obsidian').util.toggle_checkbox()
