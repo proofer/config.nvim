@@ -1,39 +1,53 @@
 return {
     'stevearc/conform.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
+    keys = {
+        {
+            '<leader>p',
+            function()
+                require('conform').format({ async = true, lsp_fallback = true })
+            end,
+            -- mode = { 'n', 'v' }, -- mapped key in in visual mode seems inop ('n' is default mode)
+            desc = 'format buffer', -- or visual mode selection',
+        },
+    },
     config = function()
         local conform = require('conform')
 
+        local prettiest = { 'prettierd', 'prettier' } -- whichever found first
         conform.setup({
             formatters_by_ft = {
-                javascript = { 'prettier' },
-                typescript = { 'prettier' },
-                javascriptreact = { 'prettier' },
-                typescriptreact = { 'prettier' },
-                svelte = { 'prettier' },
-                css = { 'prettier' },
-                html = { 'prettier' },
-                json = { 'prettier' },
-                yaml = { 'prettier' },
-                markdown = { 'prettier' },
-                graphql = { 'prettier' },
-                liquid = { 'prettier' },
+                javascript = { prettiest },
+                typescript = { prettiest },
+                javascriptreact = { prettiest },
+                typescriptreact = { prettiest },
+                svelte = { prettiest },
+                css = { prettiest },
+                html = { prettiest },
+                json = { prettiest },
+                yaml = { prettiest },
+                markdown = { prettiest },
+                graphql = { prettiest },
+                liquid = { prettiest },
                 lua = { 'stylua' },
                 python = { 'isort', 'black' },
             },
-            format_on_save = {
-                lsp_fallback = true, -- if formatter not available
-                async = false,
-                timeout_ms = 750,
-            },
+            format_on_save = function(bufnr)
+                -- Disable `lsp_fallback` for languages not having a well-standardized coding style.
+                local disable_filetypes = { c = true, cpp = true }
+                return {
+                    timeout_ms = 768,
+                    lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+                }
+            end,
         })
-
-        vim.keymap.set({ 'n', 'v' }, '<leader>mp', function()
-            conform.format({
-                lsp_fallback = true,
-                async = false,
-                timeout_ms = 1000,
-            })
-        end, { desc = 'Format file or, in visual mode, range' })
+        --
+        -- vim.keymap.set({ 'n', 'v' }, '<leader>p', function()
+        --     conform.format({
+        --         lsp_fallback = true,
+        --         async = false,
+        --         timeout_ms = 1000,
+        --     })
+        -- end, { desc = 'Format buffer or visual mode selection' })
     end,
 }

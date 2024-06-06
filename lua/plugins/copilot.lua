@@ -1,29 +1,3 @@
--- :help copilot
--- <C-]>                   Dismiss the current suggestion.
--- <Plug>(copilot-dismiss)
---
---                                                 *copilot-i_ALT-]*
--- <M-]>                   Cycle to the next suggestion, if one is available.
--- <Plug>(copilot-next)
---
---                                                 *copilot-i_ALT-[*
--- <M-[>                   Cycle to the previous suggestion.
--- <Plug>(copilot-previous)
---
---                                                 *copilot-i_ALT-\*
--- <M-\>                   Explicitly request a suggestion, even if Copilot
--- <Plug>(copilot-suggest) is disabled.
---
---                                                 *copilot-i_ALT-Right*
--- <M-Right>               Accept the next word of the current suggestion.
--- <Plug>(copilot-accept-word)
---
---                                                 *copilot-i_ALT-CTRL-Right*
---
--- <M-C-Right>             Accept the next line of the current suggestion.
--- <Plug>(copilot-accept-line)
---
-
 -- local function keymaps()
 --     require('which-key').register({
 --         c = {
@@ -39,30 +13,30 @@
 -- end
 -- vim.api.nvim_create_autocmd('VimEnter', { callback = keymaps })
 
-return {
-    'github/copilot.vim',
-}
-
 -- return {
---
---     {
---         'zbirenbaum/copilot.lua',
---         config = function()
---             require('copilot').setup({
---                 -- see copilot.cmp README:
---                 suggestion = { enabled = false },
---                 panel = { enabled = false },
---             })
---         end,
---     },
---
---     {
---         'zbirenbaum/copilot-cmp',
---         dependencies = {
---             'zbirenbaum/copilot.lua',
---         },
---         config = function()
---             require('copilot_cmp').setup()
---         end,
---     },
+--     'github/copilot.vim',
 -- }
+--
+return {
+
+    {
+        'zbirenbaum/copilot.lua',
+        config = function()
+            require('copilot').setup({
+                -- see copilot.cmp README:
+                suggestion = { enabled = true }, -- false in README
+                panel = { enabled = false },
+            })
+        end,
+    },
+
+    {
+        'zbirenbaum/copilot-cmp',
+        dependencies = {
+            'zbirenbaum/copilot.lua',
+        },
+        config = function()
+            require('copilot_cmp').setup()
+        end,
+    },
+}

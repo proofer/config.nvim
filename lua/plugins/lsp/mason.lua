@@ -25,7 +25,7 @@ return {
         })
 
         mason_lspconfig.setup({
-            -- list of servers for mason to install
+            -- LSP servers to install
             ensure_installed = {
                 'tsserver',
                 'html',
@@ -43,14 +43,17 @@ return {
         })
 
         mason_tool_installer.setup({
+            -- linters and formatters to install
             ensure_installed = {
                 'prettier', -- prettier formatter
+                'prettierd', -- daemon version
                 'stylua', -- lua formatter
                 'isort', -- python formatter
                 'black', -- python formatter
                 -- 'pylint', -- python linter
                 'flake8', --python linter
                 'eslint_d', -- js linter
+                'selene', -- lua linter
             },
         })
     end,

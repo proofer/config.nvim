@@ -1,14 +1,3 @@
--- copilot.cmp:
-local has_words_before = function()
-    if vim.api.nvim_buf_get_option(0, 'buftype') == 'prompt' then
-        return false
-    end
-    local cursor_at = vim.api.nvim_win_get_cursor(0)
-    local line, col = cursor_at[1], cursor_at[2]
-    --  return col ~= 0 and (vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]):match('^%s*$') == nil
-    return col ~= 0 and (vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]):match('^%s*$') == nil
-end
-
 return {
     'hrsh7th/nvim-cmp',
     event = { 'InsertEnter', 'CmdLineEnter' },
@@ -54,17 +43,9 @@ return {
                 ['<C-Space>'] = cmp.mapping.complete(), -- show completion suggestions
                 ['<C-e>'] = cmp.mapping.abort(), -- close completion window
                 ['<CR>'] = cmp.mapping.confirm({ select = false }),
-                ['<Tab>'] = vim.schedule_wrap(function(fallback) -- copilot.cmp
-                    if cmp.visible() and has_words_before() then
-                        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-                    else
-                        fallback()
-                    end
-                end),
             }),
             -- sources for autocompletion
             sources = cmp.config.sources({
-                { name = 'copilot' }, -- copilot.cmp
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' }, -- snippets
                 { name = 'buffer' }, -- text within current buffer
@@ -73,24 +54,12 @@ return {
 
             -- configure lspkind for vs-code like pictograms in completion menu
             formatting = {
-                expandable_indicator = true,
-                fields = { 'abbr', 'kind', 'menu' },
                 format = lspkind.cmp_format({
-                    mode = 'symbol',
-                    symbol_map = { Copilot = '' },
-                    maxwidth = 80,
+                    maxwidth = 50,
                     ellipsis_char = '...',
                 }),
             },
         })
-
-        -- copilot.cmp:
-        lspkind.init({
-            symbol_map = {
-                Copilot = '',
-            },
-        })
-        vim.api.nvim_set_hl(0, 'CmpItemKindCopilot', { fg = '#6CC644' })
 
         -- Use buffer source for `/` and `?`
         cmp.setup.cmdline({ '/', '?' }, {

@@ -1,4 +1,5 @@
 vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 local function map(mode, lhs, rhs, opts)
     opts = opts or {}
@@ -8,7 +9,6 @@ end
 
 -- stylua: ignore start
 
---map('n', 'x', '"_x',                                            { desc = 'Delete character without copy to register' } )
 
 -- vim window management
 map('n', '<leader>sv', '<C-w>v',                                { desc = 'Split window vertically' })
@@ -18,7 +18,8 @@ map('n', '<leader>sx', '<cmd>close<CR>',                        { desc = 'Close 
 map('n', '<leader>H', '<c-w>_',                                 { desc = 'Set window vertical size to `very tall`' })
 
 -- misc.:
-map('n', '<leader>h', ':nohl<CR>',                              { desc = 'Clear search highlights' })
+map('n', 'x', '"_x',                                            { desc = 'Delete character into no register' } )
+map('n', '<Esc>', '<cmd>nohlsearch<CR>',                        { desc = 'Clear search highlights' })
 map('n', '<leader>a', ':keepjumps normal! ggVG<CR>',            { desc = 'Select all -- entire buffer' })
 map('i', 'jk', '<Esc>',                                         { desc = 'Two-key sequence to leave insert/replace mode' })
 map('n', '<leader>q', '<cmd>q<CR>',                             { desc = 'Quit command' })
@@ -29,10 +30,8 @@ map('n', '<C-s>', '<cmd>w<CR>',                                 { desc = 'Save f
 map('i', '<C-s>', '<Esc><cmd>w<CR>',                            { desc = 'Leave insert mode, save file' })
 map('n', 'gn', '<cmd>!open -n -b com.neovide.neovide<CR><CR>',  { desc = 'Open new instance of Neovide' })
 
--- buffer management
+-- buffer birth, death 
 map('n', '<C-n>', '<cmd>enew<CR>',                              { desc = 'create new empty buffer' })
-map('n', '<C-l>', '<cmd>bnext<CR>',                             { desc = 'move to next (right) buffer' })
-map('n', '<C-h>', '<cmd>bprevious<CR>',                         { desc = 'move to previous (left) buffer' })
 map('n', '<C-x>', '<cmd>bd<CR>',                                { desc = 'close current buffer' })
 
 -- line numbers:
@@ -40,17 +39,9 @@ map('n', '<leader>0r', ':set number relativenumber<CR>',        { desc = 'Relati
 map('n', '<leader>0a', ':set number norelativenumber<CR>',      { desc = 'Absolute line numbers' })
 map('n', '<leader>00', ':set nonumber norelativenumber<CR>',    { desc = 'No line numbers' })
 
-map('n', '<leader>e', function()
-    if not pcall(function()
-        require('nvim-tree.api').tree.toggle()
-    end) then
-        print("Couldn't load `nvim-tree-api`")
-    end
-end,                                                            { desc = 'Toggle nvim-tree' })
-
 -- Mac clipboard usage using the '+' register
 map('v', '<D-x>', '"+x',                                        { desc = 'Cut' })
 map('v', '<D-c>', '"+y',                                        { desc = 'Copy' })
 map('c', '<D-c>', '<C-Y>',                                      { desc = 'Command line copy' })
 map('n', '<D-v>', '"+gP',                                       { desc = 'Normal mode paste avoids progressive line indents' })
-map({ 'c', 'i', 'v' }, '<D-v>', '<C-R>+',                       { desc = 'Cmd-line, insert, visual/select modes paste' })
+map({ 'c', 'i', 'v' }, '<D-v>', '<C-R>+',                       { desc = 'Cmd-line, insert, visual/select modes: paste' })

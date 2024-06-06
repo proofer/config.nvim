@@ -1,104 +1,137 @@
+-- with apologies to Josean Martinez and kickstart.nvim
 return {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
+        'williamboman/mason-lspconfig.nvim',
         'hrsh7th/cmp-nvim-lsp',
-        { 'antosha417/nvim-lsp-file-operations', config = true },
-        --  { "folke/neodev.nvim", opts = {} },
+        -- configures Lua LSP for Neovim config, runtime and plugins;
+        -- used for completion, annotations and signatures of Neovim APIs:
+        { 'folke/lazydev.nvim', opts = {} }, -- neodev.nvim replacement for Neovim >= 0.10.0
+        -- { 'antosha417/nvim-lsp-file-operations', config = true }, -- e.g., fix imports of renamed file
     },
     config = function()
-        local lspconfig = require('lspconfig')
-        local mason_lspconfig = require('mason-lspconfig')
-        -- import cmp-nvim-lsp plugin
-        local cmp_nvim_lsp = require('cmp_nvim_lsp')
-
-        local map = vim.keymap.set -- for concision
-
-        -- local opts = { noremap = true, silent = true }
-        -- local on_attach = function(client, bufnr)
-        --   opts.buffer = bufnr
-
         vim.api.nvim_create_autocmd('LspAttach', {
-            group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-            callback = function(ev)
-                -- Buffer-local mappings.
-                -- See `:help vim.lsp.*` for documentation on any of the below functions
-                local opts = { buffer = ev.buf, silent = true }
-                opts.desc = 'Show LSP references'
-                map('n', 'gR', '<cmd>Telescope lsp_references<CR>', opts)
+            group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
+            callback = function(event)
+                local map = function(keys, func, desc)
+                    vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+                end
 
-                opts.desc = 'Go to declaration'
-                map('n', 'gD', vim.lsp.buf.declaration, opts)
+                -- Jump to definition of word under cursor.
+                --  To jump back, press <C-t>.
+                map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [d]efinition')
 
-                opts.desc = 'Show LSP definitions'
-                map('n', 'gd', '<cmd>Telescope lsp_definitions<CR>', opts)
+                -- Find references for the word under cursor.
+                map('gr', require('telescope.builtin').lsp_references, '[G]oto [r]eferences')
 
-                opts.desc = 'Show LSP implementations'
-                map('n', 'gi', '<cmd>Telescope lsp_implementations<CR>', opts)
+                -- Jump to implementation of word under cursor.
+                --  Useful when the language has ways of declaring types without an actual implementation.
+                map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
 
-                opts.desc = 'Show LSP type definitions'
-                map('n', 'gt', '<cmd>Telescope lsp_type_definitions<CR>', opts)
+                -- Jump to definition of the type of the word under cursor.
+                map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
 
-                opts.desc = 'See available code actions'
-                map({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts) -- in visual mode apply to selection
+                -- Fuzzy find all the symbols in current document:
+                --  variables, functions, types, etc.
+                map('<leader>S', require('telescope.builtin').lsp_document_symbols, "Document's [S]ymbols")
 
-                opts.desc = 'Smart rename'
-                map('n', '<leader>rn', vim.lsp.buf.rename, opts)
+                -- Fuzzy find all the symbols in current workspace -- entire project.
+                -- map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
-                opts.desc = 'Show buffer diagnostics'
-                map('n', '<leader>T', '<cmd>Telescope diagnostics bufnr=0<CR>', opts)
+                -- Rename variable under cursor.
+                --  Most Language Servers support renaming across files, etc.
+                map('<leader>r', vim.lsp.buf.rename, '[R]ename')
 
-                opts.desc = 'Show line diagnostics'
-                map('n', '<leader>t', vim.diagnostic.open_float, opts)
+                -- Execute a code action. Usually cursor must be over an error
+                -- or a suggestion from LSP for this to activate.
+                map('<leader>c', vim.lsp.buf.code_action, '[C]ode action')
 
-                opts.desc = 'Go to previous diagnostic'
-                map('n', '[d', vim.diagnostic.goto_prev, opts)
+                -- Opens popup displaying documentation about word under cursor
+                --  See `:help K` for why this keymap.
+                map('K', vim.lsp.buf.hover, 'Hover Documentation')
 
-                opts.desc = 'Go to next diagnostic'
-                map('n', ']d', vim.diagnostic.goto_next, opts)
+                -- WARN: This is not Goto Definition; it is is Goto Declaration.
+                --  For example, in C this would go to a header file.
+                map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
-                opts.desc = 'Show doc for what is under cursor'
-                map('n', 'K', vim.lsp.buf.hover, opts)
+                local client = vim.lsp.get_client_by_id(event.data.client_id)
 
-                opts.desc = 'Restart LSP'
-                map('n', '<leader>rs', '<cmd>LspRestart<CR>', opts)
+                -- Toggle inlay hints in code on/off if the language server supports them.
+                -- May be unwanted, since hints displace some code
+                ---@diagnostic disable-next-line: undefined-field
+                if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+                    map('<leader>h', function()
+                        local enabled = vim.lsp.inlay_hint.is_enabled({ bufnbr = 0 })
+                        vim.lsp.inlay_hint.enable(not enabled)
+                    end, 'Toggle inlay [h]ints')
+                end
+
+                -- The following two autocommands highlight references of
+                -- word under cursor when it rests there for a little while.
+                --    See `:help CursorHold` for information about when this is executed
+                -- When you move cursor, highlights will be cleared (the second autocommand).
+                ---@diagnostic disable-next-line: undefined-field
+                if client and client.server_capabilities.documentHighlightProvider then
+                    local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
+                    vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+                        buffer = event.buf,
+                        group = highlight_augroup,
+                        callback = vim.lsp.buf.document_highlight,
+                    })
+
+                    vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+                        buffer = event.buf,
+                        group = highlight_augroup,
+                        callback = vim.lsp.buf.clear_references,
+                    })
+
+                    -- autocommand on LspDetach to clear previous two on cursor events
+                    vim.api.nvim_create_autocmd('LspDetach', {
+                        group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
+                        callback = function(event2)
+                            vim.lsp.buf.clear_references()
+                            vim.api.nvim_clear_autocmds({ group = 'kickstart-lsp-highlight', buffer = event2.buf })
+                        end,
+                    })
+                end
             end,
         })
 
-        -- used to enable autocompletion (assign in every lsp server setup())
-        local capabilities = cmp_nvim_lsp.default_capabilities()
-
-        -- show diagnostic symbols in sign column (gutter)
+        -- define diagnostic symbols for sign column (gutter)
         local signs = { Error = ' ', Warn = ' ', Hint = '󰠠 ', Info = ' ' }
         for type, icon in pairs(signs) do
             local hl = 'DiagnosticSign' .. type
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
         end
 
-        mason_lspconfig.setup_handlers({
-            -- default handler for installed servers
-            function(server_name)
+        -- basic built-in LSP client capabilities:
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        -- add completion capabilities:
+        capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+
+        local lspconfig = require('lspconfig')
+
+        require('mason-lspconfig').setup_handlers({
+            function(server_name) -- default handler for installed servers
                 lspconfig[server_name].setup({
                     capabilities = capabilities,
                 })
             end,
-
             ['lua_ls'] = function()
                 lspconfig['lua_ls'].setup({
                     capabilities = capabilities,
-                    settings = { -- custom settings for lua
+                    settings = { -- https://luals.github.io/wiki/settings/
                         Lua = {
-                            diagnostics = {
-                                -- make the language server recognize 'vim' global
-                                globals = { 'vim' },
+                            hint = {
+                                enable = true, -- inlay hints
                             },
-                            -- workspace = {
-                            --   -- make language server aware of runtime files
-                            --   library = {
-                            --     [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-                            --     [vim.fn.stdpath('config') .. '/lua'] = true,
-                            --   },
-                            -- },
+                            completion = {
+                                callSnippet = 'Replace',
+                            },
+                            diagnostics = {
+                                globals = { 'vim', 'require' }, -- avoid spurious `undefined glogal` warnings
+                            },
                         },
                     },
                 })

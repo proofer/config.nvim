@@ -41,11 +41,9 @@ local function my_on_attach(bufnr)
     -- default mappings
     api.config.mappings.default_on_attach(bufnr)
 
-    -- custom mappings: replace two diagnostics mappings and add a Help
+    -- custom mappings: delete two diagnostics mappings and add a single-key Help
     vim.keymap.del('n', '[e', { buffer = bufnr })
-    vim.keymap.set('n', '[d', api.node.navigate.diagnostics.prev, opts('Previous Diagnostic'))
     vim.keymap.del('n', ']e', { buffer = bufnr })
-    vim.keymap.set('n', ']d', api.node.navigate.diagnostics.next, opts('Next Diagnostic'))
     vim.keymap.set('n', '?', api.tree.toggle_help, opts('Help'))
 end
 
@@ -57,6 +55,11 @@ return {
         dependencies = {
             'nvim-tree/nvim-web-devicons',
         },
+        init = function()
+            vim.keymap.set('n', '<leader>e', function()
+                require('nvim-tree.api').tree.toggle()
+            end, { desc = 'Toggle nvim-tree' })
+        end,
         config = function()
             require('nvim-tree').setup({ -- entries with default values are commented out
                 on_attach = my_on_attach,
@@ -94,7 +97,7 @@ return {
                     --     },
                     --   },
                     float = {
-                        enable = true,
+                        enable = true, -- true,
                         -- quit_on_focus_loss = true,
                         open_win_config = {
                             -- relative = 'editor',

@@ -10,6 +10,7 @@ if vim.g.goneovim then
     vim.fn.serverstart('goneovim')
 end
 
+vim.g.have_nerd_font = true -- nerd font installed in terminal
 vim.o.guifont = 'MesloLGS NF:h16'
 
 require('core')
