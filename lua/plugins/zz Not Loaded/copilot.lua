@@ -24,7 +24,7 @@ return {
         config = function()
             require('copilot').setup({
                 -- see copilot.cmp README:
-                suggestion = { enabled = true }, -- false in README
+                suggestion = { enabled = false },
                 panel = { enabled = false },
             })
         end,

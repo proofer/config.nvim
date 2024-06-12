@@ -3,8 +3,7 @@ return {
     branch = '0.1.x',
     dependencies = {
         'nvim-lua/plenary.nvim',
-        { 'nvim-telescope/telescope-fzf-native.nvim', build = 'CFLAGS=-march=native make' }, --see block comment below
-        --{ 'proofer/telescope-fzf-native.nvim', build = 'make' }, --with Makefile CFLAGS for x86_64 and arm64 added
+        { 'nvim-telescope/telescope-fzf-native.nvim', build = 'CFLAGS=-march=native make' },
         'nvim-tree/nvim-web-devicons',
     },
     config = function()

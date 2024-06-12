@@ -59,7 +59,6 @@ return {
 
                 -- Toggle inlay hints in code on/off if the language server supports them.
                 -- May be unwanted, since hints displace some code
-                ---@diagnostic disable-next-line: undefined-field
                 if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
                     map('<leader>h', function()
                         local enabled = vim.lsp.inlay_hint.is_enabled({ bufnbr = 0 })
@@ -71,7 +70,6 @@ return {
                 -- word under cursor when it rests there for a little while.
                 --    See `:help CursorHold` for information about when this is executed
                 -- When you move cursor, highlights will be cleared (the second autocommand).
-                ---@diagnostic disable-next-line: undefined-field
                 if client and client.server_capabilities.documentHighlightProvider then
                     local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
                     vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
@@ -114,23 +112,19 @@ return {
 
         require('mason-lspconfig').setup_handlers({
             function(server_name) -- default handler for installed servers
-                lspconfig[server_name].setup({
-                    capabilities = capabilities,
-                })
+                lspconfig[server_name].setup({ capabilities = capabilities })
             end,
             ['lua_ls'] = function()
                 lspconfig['lua_ls'].setup({
                     capabilities = capabilities,
                     settings = { -- https://luals.github.io/wiki/settings/
                         Lua = {
-                            hint = {
-                                enable = true, -- inlay hints
-                            },
-                            completion = {
-                                callSnippet = 'Replace',
-                            },
+                            runtime = { version = 'LuaJIT' },
+                            hint = { enable = true }, -- inlay hints
+                            completion = { callSnippet = 'Replace' },
                             diagnostics = {
-                                globals = { 'vim', 'require' }, -- avoid spurious `undefined glogal` warnings
+                                globals = { 'vim', 'require', 'pcall', 'table' }, -- avoid spurious `undefined global` warnings
+                                disable = { 'missing-fields', 'undefined-field' },
                             },
                         },
                     },

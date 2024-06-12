@@ -55,17 +55,6 @@ return {
         -- { 'nvim-telescope/telescope-dap.nvim',
         --     dependencies = { "nvim-telescope/telescope.nvim" },
         -- },
-
-        -- which key integration
-        {
-            'folke/which-key.nvim',
-            optional = true,
-            opts = {
-                defaults = {
-                    ['<leader>d'] = { name = '+debug' },
-                },
-            },
-        },
     }, --end dependencies
 
   -- stylua: ignore start

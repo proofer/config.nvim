@@ -27,7 +27,9 @@ opt.pumblend = 24 -- Popup blend
 opt.pumheight = 10 -- Maximum number of entries in a popup
 opt.relativenumber = true -- Relative line numbers
 opt.scrolloff = 9 -- Lines of context
-opt.sessionoptions = { 'buffers', 'curdir', 'tabpages', 'winsize', 'help', 'globals', 'skiprtp', 'folds' }
+-- opt.sessionoptions = { 'buffers', 'curdir', 'tabpages', 'winsize', 'help', 'globals', 'skiprtp', 'folds' }
+-- without 'buffers', restores only loaded visible buffers and not hidden or invisible ones
+opt.sessionoptions = { 'curdir', 'tabpages', 'help', 'globals', 'skiprtp', 'folds' }
 opt.shiftround = true -- Round indent
 opt.shiftwidth = 4 -- Size of an indent
 opt.shortmess:append({ W = true, I = true, c = true, C = true })

@@ -38,13 +38,19 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- create non-existent intermediate dir(s) when saving a file
+-- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
     group = augroup('auto_create_dir'),
     callback = function(event)
-        if event.match:match('^%w%w+://') then
+        -- for key, value in pairs(event) do
+        --     print(key, value)
+        -- end
+        if event.match:match('^%w%w+://') then -- if URL
             return
         end
-        local file = vim.loop.fs_realpath(event.match) or event.match
+        -- vim.fn.input('past URL test')
+        local file = vim.uv.fs_realpath(event.match) or event.match
+        -- vim.fn.input('past file =')
         vim.fn.mkdir(vim.fn.fnamemodify(file, ':p:h'), 'p')
     end,
 })

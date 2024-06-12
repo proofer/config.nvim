@@ -1,0 +1,64 @@
+i  <Down>      * <Lua 556: ~/.local/share/nvim/lazy/nvim-cmp/lua/cmp/utils/keymap.lua:127>
+                 cmp.utils.keymap.set_map
+i  <C-K>       * <Lua 561: ~/.local/share/nvim/lazy/nvim-cmp/lua/cmp/utils/keymap.lua:127>
+                 cmp.utils.keymap.set_map
+i  <Up>        * <Lua 566: ~/.local/share/nvim/lazy/nvim-cmp/lua/cmp/utils/keymap.lua:127>
+                 cmp.utils.keymap.set_map
+i  <C-F>       * <Lua 569: ~/.local/share/nvim/lazy/nvim-cmp/lua/cmp/utils/keymap.lua:127>
+                 cmp.utils.keymap.set_map
+i  <C-N>       * <Lua 538: ~/.local/share/nvim/lazy/nvim-cmp/lua/cmp/utils/keymap.lua:127>
+                 cmp.utils.keymap.set_map
+i  <C-Space>   * <Lua 534: ~/.local/share/nvim/lazy/nvim-cmp/lua/cmp/utils/keymap.lua:127>
+                 cmp.utils.keymap.set_map
+i  <C-P>       * <Lua 532: ~/.local/share/nvim/lazy/nvim-cmp/lua/cmp/utils/keymap.lua:127>
+                 cmp.utils.keymap.set_map
+i  <C-Y>       * <Lua 543: ~/.local/share/nvim/lazy/nvim-cmp/lua/cmp/utils/keymap.lua:127>
+                 cmp.utils.keymap.set_map
+i  <C-E>       * <Lua 549: ~/.local/share/nvim/lazy/nvim-cmp/lua/cmp/utils/keymap.lua:127>
+                 cmp.utils.keymap.set_map
+i  <C-J>       * <Lua 563: ~/.local/share/nvim/lazy/nvim-cmp/lua/cmp/utils/keymap.lua:127>
+                 cmp.utils.keymap.set_map
+i  <C-B>       * <Lua 570: ~/.local/share/nvim/lazy/nvim-cmp/lua/cmp/utils/keymap.lua:127>
+                 cmp.utils.keymap.set_map
+!  <Plug>luasnip-expand-repeat * <Lua 365: ~/.local/share/nvim/lazy/LuaSnip/plugin/luasnip.lua:38>
+                 LuaSnip: Repeat last node expansion
+!  <Plug>luasnip-delete-check * <Lua 359: ~/.local/share/nvim/lazy/LuaSnip/plugin/luasnip.lua:31>
+                 LuaSnip: Removes current snippet from jumplist
+i  <Plug>luasnip-jump-prev * <Lua 353: ~/.local/share/nvim/lazy/LuaSnip/plugin/luasnip.lua:24>
+                 LuaSnip: Jump to the previous node
+i  <Plug>luasnip-jump-next * <Lua 350: ~/.local/share/nvim/lazy/LuaSnip/plugin/luasnip.lua:21>
+                 LuaSnip: Jump to the next node
+i  <Plug>luasnip-prev-choice * <Lua 347: ~/.local/share/nvim/lazy/LuaSnip/plugin/luasnip.lua:18>
+                 LuaSnip: Change to the previous choice from the choiceNode
+i  <Plug>luasnip-next-choice * <Lua 344: ~/.local/share/nvim/lazy/LuaSnip/plugin/luasnip.lua:15>
+                 LuaSnip: Change to the next choice from the choiceNode
+i  <Plug>luasnip-expand-snippet * <Lua 341: ~/.local/share/nvim/lazy/LuaSnip/plugin/luasnip.lua:12>
+                 LuaSnip: Expand the current snippet
+i  <Plug>luasnip-expand-or-jump * <Lua 338: ~/.local/share/nvim/lazy/LuaSnip/plugin/luasnip.lua:9>
+                 LuaSnip: Expand or jump in the current snippet
+i  <C-R>       * <Cmd>lua require("which-key").show("\18", {mode = "i", auto = true})<CR>
+i  <M-C-Right>   <Plug>(copilot-accept-line)
+i  <M-Right>     <Plug>(copilot-accept-word)
+i  <M-Bslash>    <Plug>(copilot-suggest)
+i  <M-[>         <Plug>(copilot-previous)
+i  <M-]>         <Plug>(copilot-next)
+i  <Plug>(copilot-accept-line) & copilot#AcceptLine()
+i  <Plug>(copilot-accept-word) & copilot#AcceptWord()
+i  <Plug>(copilot-suggest)   <Cmd>call copilot#Suggest()<CR>
+i  <Plug>(copilot-previous)   <Cmd>call copilot#Previous()<CR>
+i  <Plug>(copilot-next)   <Cmd>call copilot#Next()<CR>
+i  <C-]>       & copilot#Dismiss() . "\<C-]>"
+i  <Plug>(copilot-dismiss)   <Cmd>call copilot#Dismiss()<CR>
+i  <D-v>       * <C-R>+
+                 Cmd-line, insert, visual/select modes: paste
+i  <C-S>       * <Esc><Cmd>w<CR>
+                 Leave insert mode, save file
+i  <C-W>       * <C-G>u<C-W>
+                 :help i_CTRL-W-default
+i  <C-U>       * <C-G>u<C-U>
+                 :help i_CTRL-U-default
+i  <Tab>       & empty(get(g:, 'copilot_no_tab_map')) ? copilot#Accept() : "\t"
+i  <CR>        * <Lua 558: ~/.local/share/nvim/lazy/nvim-cmp/lua/cmp/utils/keymap.lua:127>
+                 cmp.utils.keymap.set_map
+i  jk          * <Esc>
+                 Two-key sequence to leave insert/replace mode
