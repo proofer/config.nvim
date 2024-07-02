@@ -1,36 +1,36 @@
-local function open_nvim_tree(data)
-    if vim.env.FINDER_LAUNCH ~= nil then -- :edit was issued by editorOpen.app
-        return
-    end
-
-    -- is buffer a [No Name]?
-    local no_name = data.file == '' and vim.bo[data.buf].buftype == ''
-
-    -- is buffer a directory?
-    local directory = vim.fn.isdirectory(data.file) == 1
-
-    if not (directory or no_name) then
-        return
-    end
-
-    if directory then
-        vim.cmd.enew()
-        if not tonumber(data.buf) then
-            vim.fn.input('not tonumber(data.buf)')
-        end
-        if tonumber(data.buf) and vim.api.nvim_buf_is_valid(data.buf) then
-            vim.cmd.bw(data.buf)
-        end
-        vim.cmd.cd(data.file) -- change to specified directory
-    else -- no_name
-        vim.cmd.cd() -- change to home directory
-    end
-
-    -- open the tree
-    require('nvim-tree.api').tree.open()
-end
-vim.api.nvim_create_autocmd('VimEnter', { callback = open_nvim_tree })
-
+-- local function open_nvim_tree(data)
+--   if vim.env.FINDER_LAUNCH ~= nil then -- :edit was issued by editorOpen.app
+--     return
+--   end
+--
+--   -- is buffer a [No Name]?
+--   local no_name = data.file == '' and vim.bo[data.buf].buftype == ''
+--
+--   -- is buffer a directory?
+--   local directory = vim.fn.isdirectory(data.file) == 1
+--
+--   if not (directory or no_name) then
+--     return
+--   end
+--
+--   if directory then
+--     vim.cmd.enew()
+--     if not tonumber(data.buf) then
+--       vim.fn.input 'not tonumber(data.buf)'
+--     end
+--     if tonumber(data.buf) and vim.api.nvim_buf_is_valid(data.buf) then
+--       vim.cmd.bw(data.buf)
+--     end
+--     vim.cmd.cd(data.file) -- change to specified directory
+--   else -- no_name
+--     vim.cmd.cd() -- change to home directory
+--   end
+--
+--   -- open the tree
+--   require('nvim-tree.api').tree.open()
+-- end
+-- vim.api.nvim_create_autocmd('VimEnter', { callback = open_nvim_tree })
+--
 local function my_on_attach(bufnr)
     local api = require('nvim-tree.api')
 
@@ -55,11 +55,11 @@ return {
         dependencies = {
             'nvim-tree/nvim-web-devicons',
         },
-        init = function()
-            vim.keymap.set('n', '<leader>e', function()
-                require('nvim-tree.api').tree.toggle()
-            end, { desc = 'Toggle nvim-tree' })
-        end,
+        -- init = function()
+        --     vim.keymap.set('n', '<leader>e', function()
+        --         require('nvim-tree.api').tree.toggle()
+        --     end, { desc = 'Toggle nvim-tree' })
+        -- end,
         config = function()
             require('nvim-tree').setup({ -- entries with default values are commented out
                 on_attach = my_on_attach,

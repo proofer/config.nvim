@@ -27,6 +27,7 @@ return {
         mason_lspconfig.setup({
             -- LSP servers to install
             ensure_installed = {
+                'awk_ls',
                 'tsserver',
                 'html',
                 'cssls',
