@@ -14,21 +14,21 @@ return {
     config = function()
         local conform = require('conform')
 
-        local prettiest = { 'prettierd', 'prettier' } -- whichever found first
+        local prettiest = { 'prettierd', 'prettier', stop_after_first = true } -- whichever found first
         conform.setup({
             formatters_by_ft = {
-                javascript = { prettiest },
-                typescript = { prettiest },
-                javascriptreact = { prettiest },
-                typescriptreact = { prettiest },
-                svelte = { prettiest },
-                css = { prettiest },
-                html = { prettiest },
-                json = { prettiest },
-                yaml = { prettiest },
-                markdown = { prettiest },
-                graphql = { prettiest },
-                liquid = { prettiest },
+                javascript = prettiest,
+                typescript = prettiest,
+                javascriptreact = prettiest,
+                typescriptreact = prettiest,
+                svelte = prettiest,
+                css = prettiest,
+                html = prettiest,
+                json = prettiest,
+                yaml = prettiest,
+                markdown = prettiest,
+                graphql = prettiest,
+                liquid = prettiest,
                 lua = { 'stylua' },
                 python = { 'isort', 'black' },
             },

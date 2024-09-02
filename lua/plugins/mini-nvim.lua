@@ -32,7 +32,6 @@ vim.api.nvim_create_autocmd('VimEnter', { callback = open_mini_files })
 
 return {
     'echasnovski/mini.nvim',
-    version = false,
     config = function()
         local map = function(keys, func, desc)
             vim.keymap.set('n', keys, func, { desc = desc })
@@ -52,10 +51,18 @@ return {
             end, 'Open mini.files in parent directory'),
         })
 
+        require('mini.indentscope').setup({
+            draw = {
+                animation = function()
+                    return 0
+                end,
+            },
+        })
+
         require('mini.jump2d').setup({
             map('f', function()
                 MiniJump2d.start(MiniJump2d.builtin_opts.single_character)
-            end, 'Mini.jump2d to next character typed'),
+            end, 'Mini.jump2d to specified character'),
         })
 
         require('mini.pairs').setup()
@@ -65,11 +72,9 @@ return {
         -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
         -- - sd'   - [S]urround [D]elete [']quotes
         -- - sr)'  - [S]urround [R]eplace [)] [']
-        require('mini.surround').setup({
-            require('which-key').register({ ['s'] = { name = '+Mini.surround' } }),
-        })
+        require('mini.surround').setup()
 
-        require('mini.sessions').setup({})
+        require('mini.sessions').setup()
 
         require('mini.misc').setup()
         MiniMisc.setup_auto_root()

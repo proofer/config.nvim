@@ -1,15 +1,7 @@
--- vim.api.nvim_create_autocmd('VimEnter', {
---     group = vim.api.nvim_create_augroup('ColorSchemeTokyoNight', { clear = true }),
---     command = 'colorscheme tokyonight',
--- })
---
 return {
     'folke/tokyonight.nvim',
     lazy = false,
     priority = 1000,
-    init = function()
-        vim.cmd.colorscheme('tokyonight')
-    end,
     opts = {
         style = 'night',
         on_colors = function(colors)
@@ -23,13 +15,13 @@ return {
         on_highlights = function(hls, clrs)
             hls.TabLineFill = { bg = '#333333' }
             hls.Todo = { bg = clrs.Yellow, fg = clrs.Black }
-            hls.Comment = { fg = '#5050ff', style = { italic = true } }
+            hls.Comment = { fg = '#5050ff', italic = true }
             hls.Whitespace = { fg = '#3a3a3a' }
             hls.WinSeparator = hls.LineNr
-            hls.GitSignsCurrentLineBlame = { fg = '#4A4A4A', style = { italic = true, bold = true } }
-            hls.DiagnosticVirtualTextError = { style = { italic = true, bold = true }, fg = clrs.darkred, bg = clrs.NONE }
-            hls.DiagnosticVirtualTextWarn = { style = { italic = true, bold = true }, fg = '#777700', bg = clrs.NONE }
-            hls.DiagnosticVirtualTextInfo = { style = { italic = true, bold = true }, fg = '#666644', bg = clrs.NONE }
+            hls.GitSignsCurrentLineBlame = { fg = '#4A4A4A', italic = true, bold = true }
+            hls.DiagnosticVirtualTextError = { italic = true, bold = true, fg = clrs.darkred, bg = clrs.NONE }
+            hls.DiagnosticVirtualTextWarn = { italic = true, bold = true, fg = '#777700', bg = clrs.NONE }
+            hls.DiagnosticVirtualTextInfo = { italic = true, bold = true, fg = '#666644', bg = clrs.NONE }
             hls.IndentBlanklineChar = { fg = '#2b2f38' }
             hls.IndentBlanklineSpaceChar = hls.Whitespace
             hls.IndentBlanklineIndent1 = hls.Whitespace
@@ -39,4 +31,12 @@ return {
             hls.IlluminatedWordWrite = hls.LspReferenceWrite
         end,
     },
+    config = function(_, opts)
+        -- Folke says,
+        -- "Important
+        -- "Set the configuration BEFORE loading the color scheme with colorscheme tokyonight."
+        require('tokyonight').setup(opts)
+        require('tokyonight').load()
+        vim.cmd.colorscheme('tokyonight')
+    end,
 }

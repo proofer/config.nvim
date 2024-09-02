@@ -11,19 +11,19 @@ end
 
 
 -- vim window management
-map('n', '<leader>sv', '<C-w>v',                                { desc = 'Split window vertically' })
-map('n', '<leader>sh', '<C-w>s',                                { desc = 'Split window horizontally' })
-map('n', '<leader>se', '<C-w>=',                                { desc = 'Make splits equal width & height' })
-map('n', '<leader>sx', '<cmd>close<CR>',                        { desc = 'Close current split' })
+map('n', '<leader>tv', '<C-w>v',                                { desc = 'Split window vertically' })
+map('n', '<leader>th', '<C-w>s',                                { desc = 'Split window horizontally' })
+map('n', '<leader>te', '<C-w>=',                                { desc = 'Make splits equal width & height' })
+map('n', '<leader>tx', '<cmd>close<CR>',                        { desc = 'Close current split' })
 map('n', '<leader>H', '<c-w>_',                                 { desc = 'Set window vertical size to `very tall`' })
 
 -- misc.:
 map('n', 'x', '"_x',                                            { desc = 'Delete character into no register' } )
 map('n', '<Esc>', '<cmd>nohlsearch<CR>',                        { desc = 'Clear search highlights' })
 map('n', '<leader>a', ':keepjumps normal! ggVG<CR>',            { desc = 'Select all -- entire buffer' })
-map('i', 'jk', '<Esc>',                                         { desc = 'Two-key sequence to leave insert/replace mode' })
+--map('i', 'jk', '<Esc>',                                         { desc = 'Two-key sequence to leave insert/replace mode' })
 map('n', '<leader>q', '<cmd>q<CR>',                             { desc = 'Quit command' })
-map('n', '<C-|>', 'u',                                          { desc = 'Make accidental undo less likely' })
+map('n', '<leader>u', 'u',                                      { desc = 'Undo' })
 map('n', 'u', 'k',                                              { desc = 'Remap original undo as dup of `k`' })
 map('n', '<leader>W', '<cmd>set wrap lbr<CR>',                  { desc = 'Set wrap with linebreak' })
 map('n', '<C-s>', '<cmd>w<CR>',                                 { desc = 'Save file' })
