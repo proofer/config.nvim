@@ -5,7 +5,6 @@
 --     end
 --     local cursor_at = vim.api.nvim_win_get_cursor(0)
 --     local line, col = cursor_at[1], cursor_at[2]
---     --  return col ~= 0 and (vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]):match('^%s*$') == nil
 --     return col ~= 0 and (vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]):match('^%s*$') == nil
 -- end
 

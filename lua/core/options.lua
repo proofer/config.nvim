@@ -29,7 +29,7 @@ opt.relativenumber = true -- Relative line numbers
 opt.scrolloff = 9 -- Lines of context
 -- opt.sessionoptions = { 'buffers', 'curdir', 'tabpages', 'winsize', 'help', 'globals', 'skiprtp', 'folds' }
 -- without 'buffers', restores only loaded visible buffers and not hidden or invisible ones
-opt.sessionoptions = { 'curdir', 'tabpages', 'help', 'globals', 'skiprtp', 'folds' }
+opt.sessionoptions = { 'buffers', 'curdir', 'tabpages', 'help', 'globals', 'options', 'skiprtp', 'folds' }
 opt.shiftround = true -- Round indent
 opt.shiftwidth = 4 -- Size of an indent
 opt.shortmess:append({ W = true, I = true, c = true, C = true })
@@ -44,7 +44,7 @@ opt.splitright = true -- Put new windows right of current
 opt.tabstop = 4 -- Number of spaces tabs count for
 opt.softtabstop = 4 -- per typecraft youtube vid
 opt.termguicolors = true -- True color support
-opt.timeoutlen = 300
+-- opt.timeoutlen = 300 -- no longer needed as now`jk` maps to Esc in keyboard firmware
 opt.undofile = true
 opt.undolevels = 10000
 opt.updatetime = 200 -- Save swap file and trigger CursorHold

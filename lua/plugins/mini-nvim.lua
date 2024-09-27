@@ -45,11 +45,10 @@ return {
             n_lines = 128, -- text object search range
         })
 
-        require('mini.files').setup({
-            map('<leader>m', function()
-                MiniFiles.open(MiniFiles.get_latest_path())
-            end, 'Open mini.files in parent directory'),
-        })
+        require('mini.files').setup()
+        map('<leader>m', function()
+            MiniFiles.open(MiniFiles.get_latest_path())
+        end, 'Open mini.files in parent directory')
 
         require('mini.indentscope').setup({
             draw = {
@@ -59,11 +58,10 @@ return {
             },
         })
 
-        require('mini.jump2d').setup({
-            map('f', function()
-                MiniJump2d.start(MiniJump2d.builtin_opts.single_character)
-            end, 'Mini.jump2d to specified character'),
-        })
+        require('mini.jump2d').setup()
+        map('f', function()
+            MiniJump2d.start(MiniJump2d.builtin_opts.single_character)
+        end, 'Mini.jump2d to specified character')
 
         require('mini.pairs').setup()
 
@@ -73,8 +71,11 @@ return {
         -- - sd'   - [S]urround [D]elete [']quotes
         -- - sr)'  - [S]urround [R]eplace [)] [']
         require('mini.surround').setup()
+        vim.keymap.set({ 'n', 'x' }, 's', '<Nop>', { desc = 'Mini.surround' })
 
-        require('mini.sessions').setup()
+        require('mini.sessions').setup({
+            autoread = true,
+        })
 
         require('mini.misc').setup()
         MiniMisc.setup_auto_root()

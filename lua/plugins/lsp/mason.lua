@@ -28,7 +28,7 @@ return {
             -- LSP servers to install
             ensure_installed = {
                 'awk_ls',
-                'tsserver',
+                'ts_ls',
                 'html',
                 'cssls',
                 -- 'tailwindcss',

@@ -4,6 +4,11 @@ local function augroup(name)
     return vim.api.nvim_create_augroup('my_aucmd_' .. name, { clear = true })
 end
 
+vim.api.nvim_create_autocmd('TermOpen', {
+    pattern = '*',
+    command = 'startinsert',
+})
+
 -- Highlight on yank
 vim.api.nvim_create_autocmd('TextYankPost', {
     group = augroup('highlight_yank'),

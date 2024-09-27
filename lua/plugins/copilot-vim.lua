@@ -8,12 +8,12 @@
 
 return {
     'github/copilot.vim',
-    keys = {
-        { '<C-S-Space>l', '<Plug>(copilot-accept-line)', mode = 'i', desc = 'Accept line' },
-        { '<C-S-Space>w', '<Plug>(copilot-accept-word)', mode = 'i', desc = 'Accept word' },
-        { '<C-S-Space>s', '<Plug>(copilot-suggest)', mode = 'i', desc = 'Make suggestion' },
-        { '<C-S-Space>p', '<Plug>(copilot-previous)', mode = 'i', desc = 'Previous suggestion' },
-        { '<C-S-Space>n', '<Plug>(copilot-next)', mode = 'i', desc = 'Next suggestion' },
-        { '<C-S-Space>x', '<Plug>(copilot-dismiss)', mode = 'i', desc = 'Dismiss suggestion' },
-    },
+    -- keys = {
+    --     { '<C-S-Space>l', '<Plug>(copilot-accept-line)', mode = 'i', desc = 'Accept line' },
+    --     { '<C-S-Space>w', '<Plug>(copilot-accept-word)', mode = 'i', desc = 'Accept word' },
+    --     { '<C-S-Space>s', '<Plug>(copilot-suggest)', mode = 'i', desc = 'Make suggestion' },
+    --     { '<C-S-Space>p', '<Plug>(copilot-previous)', mode = 'i', desc = 'Previous suggestion' },
+    --     { '<C-S-Space>n', '<Plug>(copilot-next)', mode = 'i', desc = 'Next suggestion' },
+    --     { '<C-S-Space>x', '<Plug>(copilot-dismiss)', mode = 'i', desc = 'Dismiss suggestion' },
+    -- },
 }
