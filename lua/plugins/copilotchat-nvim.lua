@@ -5,6 +5,7 @@ return {
         { 'github/copilot.vim' },
         { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper
     },
+    -- Commands, API: https://github.com/CopilotC-Nvim/CopilotChat.nvim?tab=readme-ov-file#usage
     config = true,
     -- defaults:
     -- opts = {

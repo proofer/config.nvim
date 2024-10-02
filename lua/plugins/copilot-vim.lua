@@ -1,19 +1,23 @@
--- plugin built-in mappings:
--- i  <M-C-Right>   <Plug>(copilot-accept-line)
--- i  <M-Right>     <Plug>(copilot-accept-word)
--- i  <M-Bslash>    <Plug>(copilot-suggest)
--- i  <M-[>         <Plug>(copilot-previous)
--- i  <M-]>         <Plug>(copilot-next)
--- i  <C-]>         <Plug>(copilot-dismiss)
+local function keymaps()
+    -- default: Tab accepts entire suggestion
+    require('which-key').add({
+        { '<A-l>', '<Plug>(copilot-accept-line)', mode = 'i', desc = 'Accept next line' },
+        { '<A-w>', '<Plug>(copilot-accept-word)', mode = 'i', desc = 'Accept next word' },
+        { '<A-s>', '<Plug>(copilot-suggest)', mode = 'i', desc = 'Make suggestion' },
+        { '<A-k>', '<Plug>(copilot-prev)', mode = 'i', desc = 'Previous suggestion' },
+        { '<A-j>', '<Plug>(copilot-next)', mode = 'i', desc = 'Next suggestion' },
+        { '<A-x>', '<Plug>(copilot-dismiss)', mode = 'i', desc = 'Dismiss suggestion' },
+    })
+    -- Delete default keymaps because OCD:
+    vim.keymap.del('i', '<C-]>')
+    vim.keymap.del('i', '<M-]>')
+    vim.keymap.del('i', '<M-[>')
+    vim.keymap.del('i', '<M-\\>')
+    vim.keymap.del('i', '<M-Right>')
+    vim.keymap.del('i', '<M-C-Right>')
+end
+vim.api.nvim_create_autocmd('VimEnter', { callback = keymaps })
 
 return {
     'github/copilot.vim',
-    -- keys = {
-    --     { '<C-S-Space>l', '<Plug>(copilot-accept-line)', mode = 'i', desc = 'Accept line' },
-    --     { '<C-S-Space>w', '<Plug>(copilot-accept-word)', mode = 'i', desc = 'Accept word' },
-    --     { '<C-S-Space>s', '<Plug>(copilot-suggest)', mode = 'i', desc = 'Make suggestion' },
-    --     { '<C-S-Space>p', '<Plug>(copilot-previous)', mode = 'i', desc = 'Previous suggestion' },
-    --     { '<C-S-Space>n', '<Plug>(copilot-next)', mode = 'i', desc = 'Next suggestion' },
-    --     { '<C-S-Space>x', '<Plug>(copilot-dismiss)', mode = 'i', desc = 'Dismiss suggestion' },
-    -- },
 }

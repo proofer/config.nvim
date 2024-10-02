@@ -36,6 +36,7 @@ map('i', '<C-s>', '<Esc><cmd>w<CR>',                            { desc = 'Leave 
 map('n', 'gn', '<cmd>!open -n -b com.neovide.neovide<CR><CR>',  { desc = 'Open new instance of Neovide' })
 map('n', '<leader>t', '<cmd>term<CR>',                          { desc = 'Terminal' })
 map('n', '<leader>e', function() vim.diagnostic.open_float() end, { desc = 'Show diagnostic error messages' })
+map('n', '<leader>z', function() vim.system({'tmux', 'resize-pane', '-Z'}) end, { desc = 'Toggle zoom of tmux pane' })
 
 -- buffer birth, death 
 map('n', '<C-n>', '<cmd>enew<CR>',                              { desc = 'create new empty buffer' })

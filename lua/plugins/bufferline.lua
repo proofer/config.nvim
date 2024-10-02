@@ -11,11 +11,11 @@ return {
             diagnostics = 'nvim_lsp',
         },
     },
-    keys = { -- see https://github.com/clvnkhr/macaltkey.nvim to use, e.g., <M-h>, <M-l>, etc., rather than ˙, ¬, etc.
-        { '¬', '<cmd>BufferLineCycleNext<CR>', desc = 'make next (right) buffer current' }, -- '¬' is M-l
-        { '˙', '<cmd>BufferLineCyclePrev<CR>', desc = 'make previous (left) buffer current' }, -- '˙' is M-h
-        { 'Ò', '<cmd>BufferLineMoveNext<CR>', desc = 'move curent buffer right' }, -- 'Ò' is M-L
-        { 'Ó', '<cmd>BufferLineMovePrev<CR>', desc = 'move current buffer left' }, -- 'Ó' is M-H
+    keys = {
+        { '<A-l>', '<cmd>BufferLineCycleNext<CR>', desc = 'make next (right) buffer current' },
+        { '<A-h>', '<cmd>BufferLineCyclePrev<CR>', desc = 'make previous (left) buffer current' },
+        { '<A-S-l>', '<cmd>BufferLineMoveNext<CR>', desc = 'move curent buffer right' },
+        { '<A-S-h>', '<cmd>BufferLineMovePrev<CR>', desc = 'move current buffer left' },
     },
     config = function(_, opts)
         require('bufferline').setup(opts)

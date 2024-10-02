@@ -36,7 +36,8 @@ return {
         local map = function(keys, func, desc)
             vim.keymap.set('n', keys, func, { desc = desc })
         end
-        --
+
+        ------------------------------------------------------------------------
         -- Better Around/Inside textobjects, e.g.:
         --  - va)  - [V]isually select [A]round [)]paren
         --  - yinq - [Y]ank [I]nside [N]ext [']quote
@@ -45,11 +46,28 @@ return {
             n_lines = 128, -- text object search range
         })
 
+        ------------------------------------------------------------------------
         require('mini.files').setup()
+
         map('<leader>m', function()
             MiniFiles.open(MiniFiles.get_latest_path())
         end, 'Open mini.files in parent directory')
 
+        local set_mark = function(id, path, desc)
+            MiniFiles.set_bookmark(id, path, { desc = desc })
+        end
+        vim.api.nvim_create_autocmd('User', {
+            pattern = 'MiniFilesExplorerOpen',
+            callback = function()
+                set_mark('n', '~/.config/nvim/lua', 'nvim/lua')
+                set_mark('w', vim.fn.getcwd, 'cwd') -- path via callable
+                set_mark('~', '~', 'Home dir')
+                set_mark('k', '~/dev/keyboards', 'dev/keyboards')
+                set_mark('d', '~/dev', 'dev')
+            end,
+        })
+
+        ------------------------------------------------------------------------
         require('mini.indentscope').setup({
             draw = {
                 animation = function()
@@ -58,13 +76,25 @@ return {
             },
         })
 
+        ------------------------------------------------------------------------
         require('mini.jump2d').setup()
         map('f', function()
             MiniJump2d.start(MiniJump2d.builtin_opts.single_character)
         end, 'Mini.jump2d to specified character')
 
-        require('mini.pairs').setup()
+        ------------------------------------------------------------------------
+        require('mini.misc').setup()
+        MiniMisc.setup_auto_root()
 
+        ------------------------------------------------------------------------
+        ---require('mini.pairs').setup()
+
+        ------------------------------------------------------------------------
+        require('mini.sessions').setup({
+            autoread = true,
+        })
+
+        ------------------------------------------------------------------------
         -- Add/delete/replace surroundings (brackets, quotes, etc.)
         --
         -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
@@ -72,14 +102,5 @@ return {
         -- - sr)'  - [S]urround [R]eplace [)] [']
         require('mini.surround').setup()
         vim.keymap.set({ 'n', 'x' }, 's', '<Nop>', { desc = 'Mini.surround' })
-
-        require('mini.sessions').setup({
-            autoread = true,
-        })
-
-        require('mini.misc').setup()
-        MiniMisc.setup_auto_root()
-
-        --
     end,
 }
