@@ -9,7 +9,6 @@ end
 
 -- stylua: ignore start
 
-
 -- window management
 map('n', '<leader>sv', '<C-w>v',                                { desc = 'Split window vertically' })
 map('n', '<leader>sh', '<C-w>s',                                { desc = 'Split window horizontally' })

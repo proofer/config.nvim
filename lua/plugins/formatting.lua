@@ -40,6 +40,11 @@ return {
                     lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
                 }
             end,
+            formatters = {
+                lua = {
+                    command = '/usr/local/bin/stylua',
+                }
+            }
         })
         --
         -- vim.keymap.set({ 'n', 'v' }, '<leader>p', function()

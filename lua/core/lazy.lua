@@ -13,8 +13,24 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
     { import = 'plugins' },
-    { import = 'plugins.lsp' },
-    { import = 'plugins.debugging' },
+    {
+        import = 'plugins.debugging',
+        cond = function()
+            return not vim.g.vscode
+        end,
+    },
+    {
+        import = 'plugins.lsp',
+        cond = function()
+            return not vim.g.vscode
+        end,
+    },
+    {
+        import = 'plugins.vscode_no',
+        cond = function()
+            return not vim.g.vscode
+        end,
+    },
 }, {
     install = {
         colorscheme = { 'tokyonight' },
