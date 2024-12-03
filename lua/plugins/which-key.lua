@@ -1,6 +1,9 @@
 return {
-    "folke/which-key.nvim",
+    'folke/which-key.nvim',
     opts = {
-        preset = "helix", -- "classic" | "modern"
+        preset = 'modern', -- "classic" | "modern" | "helix"
+        -- layout = {
+        --     width = { min = 40 }, -- min and max width of the columns
+        -- },
     },
 }

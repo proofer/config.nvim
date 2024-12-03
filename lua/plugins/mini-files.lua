@@ -1,5 +1,5 @@
 return {
-    "echasnovski/mini.files",
+    'echasnovski/mini.files',
     lazy = false, -- make available for startup dashboard
     opts = {
         windows = {
@@ -16,18 +16,14 @@ return {
     keys = function() -- remove the 'f' key from LHS of default mappings
         return {
             {
-                "<leader>m",
-                function()
-                    require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
-                end,
+                '<leader>m',
+                function() require('mini.files').open(vim.api.nvim_buf_get_name(0), true) end,
                 desc = "Open mini.files (Current File's Directory)",
             },
             {
-                "<leader>M",
-                function()
-                    require("mini.files").open(vim.uv.cwd(), true)
-                end,
-                desc = "Open mini.files (cwd)",
+                '<leader>M',
+                function() require('mini.files').open(vim.uv.cwd(), true) end,
+                desc = 'Open mini.files (cwd)',
             },
         }
     end,

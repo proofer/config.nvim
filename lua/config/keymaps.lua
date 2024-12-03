@@ -45,8 +45,6 @@ end
 -- stylua: ignore start
 map("n", "gh", open_github_url,                              { desc = "Go to gitub repo under cursor" })
 
-map("n", "<leader><S-a>", "<cmd>keepjumps normal! ggVG<CR>", { desc = "Select All -- entire buffer" })
-
--- buffer birth, death 
+-- buffer birth, death
 map('n', '<C-n>', '<cmd>enew<CR>',                           { desc = 'create new empty buffer' })
 map('n', '<C-x>', '<cmd>bd<CR>',                             { desc = 'close current buffer' })

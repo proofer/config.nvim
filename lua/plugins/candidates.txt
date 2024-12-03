@@ -1,0 +1,10 @@
+https://github.com/mrjones2014/smart-splits.nvim
+Smarter and more intuitive split pane management that uses a mental model of left/right/up/down instead of wider/narrower/taller/shorter for resizing. Supports seamless navigation between Neovim and terminal multiplexer split panes.
+
+https://github.com/chrisgrieser/nvim-rip-substitute
+Search and replace in the current buffer with incremental preview, a convenient UI, and modern regex syntax.
+
+https://github.com/Exafunction/codeium.nvim
+plus subscription to Codeium. In place of Copilot. Note: chat is browser-only.
+
+
