@@ -4,7 +4,7 @@
 
 local function map(mode, lhs, rhs, opts)
     opts = opts or {}
-    opts = vim.tbl_extend("keep", opts, { remap = false, silent = true })
+    opts = vim.tbl_extend('keep', opts, { remap = false, silent = true })
     vim.keymap.set(mode, lhs, rhs, opts)
 end
 
@@ -14,13 +14,13 @@ end
 local function open_github_url()
     -- Get line under cursor
     local line = vim.api.nvim_get_current_line()
-    local col = vim.fn.col(".") -- cursor column
-    local prefix = "https://github.com/"
-    local user_repo_pattern = "([%w%-]+/[%w%.%_%-]+)" -- username/repo-name capture group
+    local col = vim.fn.col('.') -- cursor column
+    local prefix = 'https://github.com/'
+    local user_repo_pattern = '([%w%-]+/[%w%.%_%-]+)' -- username/repo-name capture group
     local user_repo = line:match(prefix .. user_repo_pattern)
     if not user_repo then -- if not entire URL
         -- find only the optionally quoted username/repo-name under the cursor:
-        for matched in line:gmatch("(['\"]?" .. user_repo_pattern .. "['\"]?)") do
+        for matched in line:gmatch('([\'"]?' .. user_repo_pattern .. '[\'"]?)') do
             -- `username/repo-name`; if in quotes, include them
             -- matched == captured user_repo_pattern
             local start_pos, end_pos = line:find(matched, 1, true)
@@ -35,11 +35,11 @@ local function open_github_url()
     end
     if user_repo then
         local url = prefix .. user_repo
-        vim.fn.system({ "open", url }) -- macOS
+        vim.fn.system({ 'open', url }) -- macOS
     -- vim.fn.system({'xdg-open', url}) -- Linux
     -- vim.fn.system({'start', url}) -- Windows
     else
-        print("Valid repo name not found under cursor.")
+        print('Valid repo name not found under cursor.')
     end
 end
 -- stylua: ignore start

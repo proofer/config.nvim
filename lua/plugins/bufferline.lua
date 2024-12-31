@@ -18,4 +18,18 @@ return {
             tab_size = 0, -- 18,
         },
     },
+    keys = { -- LazyVim defaults, commented-out, shown for context
+        -- { '<leader>bp', '<Cmd>BufferLineTogglePin<CR>', desc = 'Toggle Pin' },
+        -- { '<leader>bP', '<Cmd>BufferLineGroupClose ungrouped<CR>', desc = 'Delete Non-Pinned Buffers' },
+        -- { '<leader>br', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete Buffers to the Right' },
+        -- { '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete Buffers to the Left' },
+        { '<A-S-h>', '<cmd>lua require("bufferline").go_to(1, true)<cr>', desc = 'First buffer' },
+        -- { '<S-h>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer' },
+        -- { '<S-l>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
+        { '<A-S-l>', '<cmd>lua require("bufferline").go_to(-1, true)<cr>', desc = 'Last buffer' },
+        -- { '[b', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer' },
+        -- { ']b', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
+        -- { '[B', '<cmd>BufferLineMovePrev<cr>', desc = 'Move buffer prev' },
+        -- { ']B', '<cmd>BufferLineMoveNext<cr>', desc = 'Move buffer next' },
+    },
 }
