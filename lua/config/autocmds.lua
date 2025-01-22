@@ -11,6 +11,7 @@ vim.api.nvim_create_autocmd('User', {
         set_mark('w', vim.fn.getcwd, 'cwd') -- path via callable
         set_mark('~', '~', 'Home dir')
         set_mark('k', '~/dev/keyboards', 'dev/keyboards')
+        set_mark('v', '~/Documents/NotesVault', 'NotesVault')
         set_mark('d', '~/dev', 'dev')
     end,
 })

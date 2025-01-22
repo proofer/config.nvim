@@ -1,7 +1,9 @@
+local M = {}
+
 -- If an entire URL starting with 'https//github.com/' is under the cursor, open it.
 -- Otherwise, if a github repo's username/repo-name, optionally within quotes,
 -- is under the cursor, construct a complete URL and open the repo.
-local function open_github_url()
+function M.open_github_url()
     -- Get line under cursor
     local line = vim.api.nvim_get_current_line()
     local col = vim.fn.col('.') -- cursor column
@@ -32,4 +34,18 @@ local function open_github_url()
         print('Valid repo name not found under cursor.')
     end
 end
-vim.keymap.set('n', 'gh', open_github_url, { desc = 'Go to gitub repo under cursor' })
+
+function M.daily_note()
+    local date = os.date('%Y-%m-%d')
+    local path = os.getenv('HOME') .. '/Documents/NotesVault/Daily/' .. date .. '.md'
+    vim.cmd('edit ' .. path)
+    -- if file does not exist, write date as level 1 markdown heading, leave in insert mode on line 3
+    -- if vim.fn.empty(vim.fn.glob(path)) > 0 then
+    -- if buffer empty, write date as level 1 markdown heading, leave in insert mode on line 3
+    if vim.fn.line('$') == 1 and vim.fn.getline(1) == '' then
+        vim.cmd('normal i# ' .. date .. '\r\r')
+        vim.cmd('startinsert')
+    end
+end
+
+return M
