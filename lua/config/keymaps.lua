@@ -23,13 +23,14 @@ map('n', '<A-d>', function() require('config.util').daily_note() end,   { desc =
 
 local path = '~/Documents/NotesVault' -- directory in which to live_grep with the following keymap
 map('n', '<leader>sn', function ()
-    vim.cmd('cd '..path)
+    vim.fn.chdir(path)
     local got_picker = false
     if pcall(require, 'telescope') then
         got_picker = true
         require('telescope.builtin').live_grep( { root = false } )
-    elseif pcall(require, 'fzf-lua') then got_picker = true
-        require('fzf-lua').live_grep({ cwd = vim.fn.getcwd() })
+    elseif pcall(require, 'fzf-lua') then
+        got_picker = true
+        require('fzf-lua').live_grep( { cwd = vim.fn.getcwd() } )
     elseif pcall(require, 'snacks') then
         local snacks = require('snacks')
         if snacks.picker and type(snacks.picker) == "table" then

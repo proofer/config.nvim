@@ -11,7 +11,7 @@ vim.opt.guicursor = 'a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,'
 
 -- if the completion engine supports the AI source,
 -- use that instead of inline suggestions
-vim.g.ai_cmp = false
+vim.g.ai_cmp = false -- default true but prevents use of copilot accept next word or line
 
 vim.opt.shiftwidth = 4 -- Size of an indent
 vim.opt.tabstop = 4 -- Number of spaces per tab
